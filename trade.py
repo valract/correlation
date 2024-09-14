@@ -1,3 +1,30 @@
+import subprocess
+import sys
+
+# List of libraries to check
+libraries = [
+    'requests',
+    'pandas',
+]
+
+def install_package(package):
+    """Install a package using pip."""
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+
+def check_and_install_libraries(libraries):
+    """Check if libraries are installed and install them if not."""
+    for library in libraries:
+        try:
+            __import__(library)
+        except ImportError:
+       	    if library == 'sklearn':
+       	    	library = 'scikit-learn'
+            install_package(library)
+
+if __name__ == "__main__":
+    check_and_install_libraries(libraries)
+
+
 import requests
 import pandas as pd
 
